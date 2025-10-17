@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Install Python packages
-RUN pip install scapy pandas scikit-learn numpy
+RUN pip install scapy pandas scikit-learn numpy xgboost netifaces
 
 COPY . .
 
