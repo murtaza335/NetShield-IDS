@@ -1,0 +1,167 @@
+# =============================================================================
+# ENHANCED SURICATA IDS RULES - FULLY CORRECTED VERSION
+# Compatible with Suricata 7.0.3
+# All syntax errors fixed and tested
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PORT SCANNING DETECTION
+# -----------------------------------------------------------------------------
+
+alert tcp any any -> $HOME_NET any (msg:"SCAN TCP Port Scan Detected"; flags:S,12; threshold: type both, track by_src, count 20, seconds 60; classtype:attempted-recon; sid:1000001; rev:2; priority:2;)
+
+alert tcp any any -> $HOME_NET any (msg:"SCAN TCP SYN-FIN Stealth Scan"; flags:SF,12; threshold: type both, track by_src, count 5, seconds 30; classtype:attempted-recon; sid:1000009; rev:1; priority:2;)
+
+alert tcp any any -> $HOME_NET any (msg:"SCAN TCP NULL Scan Detected"; flags:0; threshold: type both, track by_src, count 10, seconds 30; classtype:attempted-recon; sid:1000010; rev:1; priority:2;)
+
+alert tcp any any -> $HOME_NET any (msg:"SCAN TCP XMAS Scan Detected"; flags:FPU,12; threshold: type both, track by_src, count 5, seconds 30; classtype:attempted-recon; sid:1000011; rev:1; priority:2;)
+
+alert udp any any -> $HOME_NET any (msg:"SCAN UDP Port Scan Detected"; threshold: type both, track by_src, count 30, seconds 60; classtype:attempted-recon; sid:1000012; rev:1; priority:2;)
+
+# -----------------------------------------------------------------------------
+# SQL INJECTION DETECTION
+# -----------------------------------------------------------------------------
+
+alert http any any -> $HOME_NET any (msg:"WEB SQL Injection - Union Select"; flow:established,to_server; content:"union"; nocase; content:"select"; nocase; distance:0; within:50; classtype:web-application-attack; sid:1000002; rev:2; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB SQL Injection - OR 1=1 Pattern"; flow:established,to_server; content:"or"; nocase; pcre:"/(\s|%20)(or|and)(\s|%20)(\d+|[\'\"][\w]*[\'\"])(\s|%20)*=(\s|%20)*(\1)/i"; classtype:web-application-attack; sid:1000013; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB SQL Injection - Comment Syntax"; flow:established,to_server; content:"--"; http_uri; classtype:web-application-attack; sid:1000014; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB SQL Injection - Time-based Blind"; flow:established,to_server; content:"waitfor"; nocase; content:"delay"; nocase; distance:0; within:50; classtype:web-application-attack; sid:1000015; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB SQL Injection - Information Schema Access"; flow:established,to_server; content:"information_schema"; nocase; classtype:web-application-attack; sid:1000016; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# XSS DETECTION
+# -----------------------------------------------------------------------------
+
+alert http any any -> $HOME_NET any (msg:"WEB XSS - Script Tag Injection"; flow:established,to_server; content:"<script"; nocase; classtype:web-application-attack; sid:1000003; rev:2; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB XSS - Event Handler Injection"; flow:established,to_server; pcre:"/on(load|error|click|mouseover)\s*=/i"; classtype:web-application-attack; sid:1000017; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB XSS - Iframe Injection"; flow:established,to_server; content:"<iframe"; nocase; classtype:web-application-attack; sid:1000018; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB XSS - JavaScript Protocol Handler"; flow:established,to_server; content:"javascript:"; nocase; classtype:web-application-attack; sid:1000019; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# COMMAND INJECTION
+# -----------------------------------------------------------------------------
+
+alert http any any -> $HOME_NET any (msg:"WEB Command Injection - Shell Command"; flow:established,to_server; content:"|3b|"; content:"/bin/"; distance:0; within:20; classtype:web-application-attack; sid:1000004; rev:2; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB Command Injection - Pipe Operator"; flow:established,to_server; content:"|7c|"; pcre:"/\|\s*(cat|ls|wget|curl|nc)/i"; classtype:web-application-attack; sid:1000020; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB Command Injection - Backtick Execution"; flow:established,to_server; content:"|60|"; pcre:"/`[\w\/\s]+`/"; classtype:web-application-attack; sid:1000021; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# DDoS DETECTION
+# -----------------------------------------------------------------------------
+
+alert tcp any any -> $HOME_NET any (msg:"DOS SYN Flood Attack Detected"; flags:S,12; threshold: type both, track by_dst, count 100, seconds 10; classtype:attempted-dos; sid:1000005; rev:2; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"DOS HTTP Flood Detected"; flow:established,to_server; threshold: type both, track by_src, count 100, seconds 10; classtype:attempted-dos; sid:1000022; rev:1; priority:1;)
+
+alert udp any any -> $HOME_NET any (msg:"DOS UDP Flood Detected"; threshold: type both, track by_dst, count 200, seconds 10; classtype:attempted-dos; sid:1000023; rev:1; priority:1;)
+
+alert tcp any any -> $HOME_NET $HTTP_PORTS (msg:"DOS Slowloris Attack Pattern"; flow:established,to_server; content:"X-"; http_header; threshold: type both, track by_src, count 50, seconds 300; classtype:attempted-dos; sid:1000024; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# BRUTE FORCE DETECTION
+# -----------------------------------------------------------------------------
+
+alert tcp any any -> $HOME_NET 22 (msg:"SCAN SSH Brute Force Attack"; flags:S,12; threshold: type both, track by_src, count 5, seconds 60; classtype:attempted-admin; sid:1000008; rev:2; priority:1;)
+
+alert tcp any any -> $HOME_NET 21 (msg:"SCAN FTP Brute Force Attack"; flow:established,to_server; content:"USER"; threshold: type both, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000025; rev:1; priority:1;)
+
+alert tcp any any -> $HOME_NET 3389 (msg:"SCAN RDP Brute Force Attack"; flags:S,12; threshold: type both, track by_src, count 10, seconds 60; classtype:attempted-admin; sid:1000026; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"SCAN HTTP Authentication Brute Force"; flow:established,to_server; content:"Authorization:"; http_header; threshold: type both, track by_src, count 20, seconds 60; classtype:attempted-admin; sid:1000027; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# MALWARE & C2 DETECTION
+# -----------------------------------------------------------------------------
+
+alert dns any any -> any any (msg:"MALWARE Suspicious Long DNS Query - Possible C2"; dns.query; content:"|00|"; byte_test:1,>,50,0,relative; classtype:trojan-activity; sid:1000006; rev:2; priority:1;)
+
+alert dns any any -> any any (msg:"MALWARE Possible DNS Tunneling"; dns.query; pcre:"/^[a-f0-9]{32,}/"; classtype:trojan-activity; sid:1000028; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"MALWARE Base64 Encoded Suspicious Payload"; flow:established,to_server; content:"eval"; nocase; content:"base64"; nocase; distance:0; within:100; classtype:trojan-activity; sid:1000029; rev:1; priority:1;)
+
+alert tcp any any -> any any (msg:"MALWARE Possible Reverse Shell Connection"; flow:established,to_server; content:"/bin/sh"; content:"-i"; distance:0; classtype:trojan-activity; sid:1000030; rev:1; priority:1;)
+
+alert http any any -> any any (msg:"MALWARE Cryptocurrency Mining Pool Connection"; flow:established; content:"stratum+tcp"; classtype:trojan-activity; sid:1000031; rev:1; priority:2;)
+
+# -----------------------------------------------------------------------------
+# RECONNAISSANCE DETECTION
+# -----------------------------------------------------------------------------
+
+alert icmp any any -> $HOME_NET any (msg:"SCAN ICMP Ping Sweep Detected"; itype:8; threshold: type both, track by_src, count 10, seconds 5; classtype:attempted-recon; sid:1000007; rev:2; priority:2;)
+
+alert tcp any any -> $HOME_NET any (msg:"SCAN Nmap OS Detection Probe"; flags:0; window:1024; threshold: type both, track by_src, count 3, seconds 10; classtype:attempted-recon; sid:1000032; rev:1; priority:2;)
+
+alert http any any -> $HOME_NET any (msg:"SCAN Web Application Scanner Detected"; flow:established,to_server; content:"User-Agent|3a|"; pcre:"/User-Agent\x3a\s*(nikto|nmap|masscan|acunetix|burp|sqlmap|nessus|openvas)/i"; classtype:attempted-recon; sid:1000033; rev:1; priority:2;)
+
+# -----------------------------------------------------------------------------
+# ZERO-DAY & EXPLOIT DETECTION
+# -----------------------------------------------------------------------------
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT Shellshock Bash Vulnerability"; flow:established,to_server; content:"() {"; nocase; classtype:attempted-admin; sid:1000034; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT Log4Shell JNDI Injection Attempt"; flow:established,to_server; content:"${jndi:"; nocase; classtype:attempted-admin; sid:1000035; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT Path Traversal Attack"; flow:established,to_server; content:"../"; http_uri; pcre:"/(\.\.\/){3,}/"; classtype:attempted-admin; sid:1000036; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT PHP Code Injection Attempt"; flow:established,to_server; content:"<?php"; nocase; classtype:web-application-attack; sid:1000037; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT XXE Attack Detected"; flow:established,to_server; content:"<!ENTITY"; nocase; content:"SYSTEM"; nocase; distance:0; within:100; classtype:attempted-admin; sid:1000038; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT SSRF Attack Pattern"; flow:established,to_server; pcre:"/url=https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)/i"; classtype:web-application-attack; sid:1000039; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT Remote File Inclusion Attempt"; flow:established,to_server; pcre:"/https?:\/\/[^\/]+\/.*\.(php|asp|jsp)/i"; classtype:web-application-attack; sid:1000040; rev:1; priority:1;)
+
+# -----------------------------------------------------------------------------
+# SUSPICIOUS TRAFFIC PATTERNS
+# -----------------------------------------------------------------------------
+
+alert http any any -> $HOME_NET any (msg:"SUSPICIOUS Unusual HTTP Method"; flow:established,to_server; http.method; pcre:"/^(?!GET|POST|HEAD|PUT|DELETE|OPTIONS|PATCH|TRACE)/"; classtype:policy-violation; sid:1000041; rev:2; priority:3;)
+
+alert http any any -> $HOME_NET any (msg:"SUSPICIOUS Large POST Request"; flow:established,to_server; http.method; content:"POST"; http.content_len; byte_test:4,>,1000000,0; classtype:policy-violation; sid:1000042; rev:3; priority:2;)
+
+alert http any any -> $HOME_NET any (msg:"SUSPICIOUS Executable File Upload"; flow:established,to_server; content:"Content-Type|3a|"; http_header; pcre:"/Content-Type\x3a\s*application\/(x-msdownload|x-executable|x-dosexec)/i"; classtype:policy-violation; sid:1000044; rev:2; priority:2;)
+
+alert http $HOME_NET any -> any any (msg:"SUSPICIOUS Multiple Failed HTTP Responses"; flow:established,from_server; http.stat_code; content:"401"; threshold: type both, track by_dst, count 10, seconds 60; classtype:policy-violation; sid:1000045; rev:1; priority:3;)
+
+# -----------------------------------------------------------------------------
+# LATERAL MOVEMENT DETECTION
+# -----------------------------------------------------------------------------
+
+alert tcp any any -> $HOME_NET 445 (msg:"SUSPICIOUS SMB Connection from Internal Source"; flow:established,to_server; threshold: type both, track by_src, count 10, seconds 300; classtype:policy-violation; sid:1000046; rev:1; priority:2;)
+
+alert tcp any any -> $HOME_NET 135 (msg:"SUSPICIOUS WMI Connection Pattern"; flow:established,to_server; threshold: type both, track by_src, count 5, seconds 60; classtype:policy-violation; sid:1000047; rev:1; priority:2;)
+
+# -----------------------------------------------------------------------------
+# DATA EXFILTRATION DETECTION
+# -----------------------------------------------------------------------------
+
+alert tcp $HOME_NET any -> any any (msg:"SUSPICIOUS Large Outbound Data Transfer"; flow:established,to_client; threshold: type threshold, track by_src, count 1000, seconds 60; classtype:policy-violation; sid:1000048; rev:1; priority:2;)
+
+alert tcp $HOME_NET any -> $EXTERNAL_NET !$HTTP_PORTS (msg:"SUSPICIOUS HTTP Traffic on Non-Standard Port"; flow:established,to_client; content:"HTTP/1."; classtype:policy-violation; sid:1000049; rev:2; priority:3;)
+
+# -----------------------------------------------------------------------------
+# ADDITIONAL PROTECTIONS
+# -----------------------------------------------------------------------------
+
+alert tls any any -> any any (msg:"SUSPICIOUS Tor Network Connection via Onion Domain"; flow:established; tls.sni; content:".onion"; nocase; classtype:policy-violation; sid:1000050; rev:2; priority:3;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT PowerShell Download Cradle"; flow:established,to_server; content:"IEX"; nocase; content:"Net.WebClient"; nocase; distance:0; classtype:trojan-activity; sid:1000051; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"EXPLOIT Web Shell Upload Attempt"; flow:established,to_server; content:"c99"; nocase; content:"shell"; nocase; distance:0; within:50; classtype:web-application-attack; sid:1000052; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"MALWARE Mimikatz User-Agent"; flow:established,to_server; content:"User-Agent|3a|"; content:"mimikatz"; nocase; distance:0; classtype:trojan-activity; sid:1000053; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"WEB LDAP Injection Attempt"; flow:established,to_server; pcre:"/[*()|\&]/"; content:"ldap"; nocase; classtype:web-application-attack; sid:1000054; rev:1; priority:1;)
+
+alert http any any -> $HOME_NET any (msg:"SUSPICIOUS Empty or Minimal User-Agent"; flow:established,to_server; content:"User-Agent|3a 20 0d 0a|"; classtype:policy-violation; sid:1000055; rev:1; priority:3;)
+
+alert dns any any -> any any (msg:"SUSPICIOUS Excessive DNS Queries - Possible Exfiltration"; threshold: type both, track by_src, count 100, seconds 60; classtype:policy-violation; sid:1000056; rev:2; priority:2;)
