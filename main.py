@@ -6,6 +6,14 @@ import time
 import json
 import os
 import sys
+from collections import defaultdict, deque
+from datetime import datetime
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 # Default Configuration for Windows
 DEFAULT_SURICATA_PATH = r"C:\Program Files\Suricata\suricata.exe"
@@ -17,125 +25,337 @@ EVE_JSON_FILE = "eve.json"
 class NetShieldIDS:
     def __init__(self, root):
         self.root = root
-        self.root.title("NetShield IDS - Suricata Wrapper")
-        self.root.geometry("1000x700")
+        self.root.title("NetShield IDS - Intrusion Detection System")
+        self.root.geometry("1400x800")
+        self.root.configure(bg='#f0f0f0')
         
         self.is_running = False
         self.suricata_process = None
         self.stop_event = threading.Event()
+        
+        # Statistics tracking
+        self.alert_stats = {
+            'high': 0,
+            'medium': 0,
+            'low': 0,
+            'total': 0
+        }
+        self.alerts_per_minute = deque(maxlen=60)  # Last 60 minutes
+        self.category_stats = defaultdict(int)
+        self.last_minute = datetime.now().minute
+        self.current_minute_count = 0
 
         self.setup_ui()
+        self.start_chart_updates()
 
     def setup_ui(self):
-        # --- Configuration Frame ---
-        config_frame = ttk.LabelFrame(self.root, text="Configuration", padding="10")
-        config_frame.pack(fill="x", padx=10, pady=5)
-
-        # Suricata Executable
-        ttk.Label(config_frame, text="Suricata Path:").grid(row=0, column=0, sticky="w")
-        self.suricata_path_var = tk.StringVar(value=DEFAULT_SURICATA_PATH)
-        ttk.Entry(config_frame, textvariable=self.suricata_path_var, width=50).grid(row=0, column=1, padx=5, pady=2)
-
-        # Config File
-        ttk.Label(config_frame, text="Config Path:").grid(row=1, column=0, sticky="w")
-        self.config_path_var = tk.StringVar(value=DEFAULT_CONFIG_PATH)
-        ttk.Entry(config_frame, textvariable=self.config_path_var, width=50).grid(row=1, column=1, padx=5, pady=2)
-
-        # Interface
-        ttk.Label(config_frame, text="Interface (e.g., Ethernet):").grid(row=2, column=0, sticky="w")
-        self.interface_var = tk.StringVar(value="Ethernet")
-        ttk.Entry(config_frame, textvariable=self.interface_var, width=20).grid(row=2, column=1, sticky="w", padx=5, pady=2)
-
-        # Log Directory
-        ttk.Label(config_frame, text="Log Directory:").grid(row=3, column=0, sticky="w")
-        self.log_dir_var = tk.StringVar(value=DEFAULT_LOG_DIR)
-        ttk.Entry(config_frame, textvariable=self.log_dir_var, width=50).grid(row=3, column=1, padx=5, pady=2)
-
-        # Buttons
-        btn_frame = ttk.Frame(config_frame)
-        btn_frame.grid(row=4, column=0, columnspan=2, pady=10)
+        # Create main container with tabs
+        self.notebook = ttk.Notebook(self.root)
+        self.notebook.pack(fill="both", expand=True, padx=5, pady=5)
         
-        self.start_btn = ttk.Button(btn_frame, text="Start IDS", command=self.start_ids)
-        self.start_btn.pack(side="left", padx=5)
+        # Tab 1: Dashboard
+        self.dashboard_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.dashboard_tab, text="  Dashboard  ")
         
-        self.stop_btn = ttk.Button(btn_frame, text="Stop IDS", command=self.stop_ids, state="disabled")
-        self.stop_btn.pack(side="left", padx=5)
+        # Tab 2: Alerts
+        self.alerts_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.alerts_tab, text="  Alerts  ")
+        
+        # Tab 3: Configuration
+        self.config_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.config_tab, text="  Configuration  ")
+        
+        # Tab 4: Console
+        self.console_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.console_tab, text="  Console  ")
+        
+        self.setup_dashboard_tab()
+        self.setup_alerts_tab()
+        self.setup_config_tab()
+        self.setup_console_tab()
+        self.setup_status_bar()
 
-        self.list_iface_btn = ttk.Button(btn_frame, text="List Interfaces", command=self.list_interfaces)
-        self.list_iface_btn.pack(side="left", padx=5)
+    def setup_status_bar(self):
+        """Status bar at the bottom"""
+        status_frame = ttk.Frame(self.root)
+        status_frame.pack(side="bottom", fill="x", padx=5, pady=2)
+        
+        self.status_var = tk.StringVar(value="● Ready")
+        self.status_label = ttk.Label(status_frame, textvariable=self.status_var, relief=tk.SUNKEN, anchor="w")
+        self.status_label.pack(side="left", fill="x", expand=True)
+        
+        # Status indicator
+        self.status_indicator = tk.Canvas(status_frame, width=20, height=20, highlightthickness=0)
+        self.status_indicator.pack(side="right", padx=5)
+        self.status_circle = self.status_indicator.create_oval(5, 5, 15, 15, fill='gray', outline='')
 
-        self.test_btn = ttk.Button(btn_frame, text="Test IDS", command=self.test_ids)
-        self.test_btn.pack(side="left", padx=5)
+    def setup_dashboard_tab(self):
+        """Dashboard with statistics and graphs"""
+        # Top stats panel
+        stats_frame = ttk.Frame(self.dashboard_tab)
+        stats_frame.pack(fill="x", padx=10, pady=10)
+        
+        # Stats cards
+        self.create_stat_card(stats_frame, "Total Alerts", "total", 0, "#3498db")
+        self.create_stat_card(stats_frame, "High Severity", "high", 1, "#e74c3c")
+        self.create_stat_card(stats_frame, "Medium Severity", "medium", 2, "#f39c12")
+        self.create_stat_card(stats_frame, "Low Severity", "low", 3, "#2ecc71")
+        
+        # Control buttons
+        control_frame = ttk.LabelFrame(self.dashboard_tab, text="Controls", padding="10")
+        control_frame.pack(fill="x", padx=10, pady=5)
+        
+        btn_container = ttk.Frame(control_frame)
+        btn_container.pack()
+        
+        self.start_btn = ttk.Button(btn_container, text="▶ Start IDS", command=self.start_ids, width=15)
+        self.start_btn.grid(row=0, column=0, padx=5, pady=5)
+        
+        self.stop_btn = ttk.Button(btn_container, text="■ Stop IDS", command=self.stop_ids, state="disabled", width=15)
+        self.stop_btn.grid(row=0, column=1, padx=5, pady=5)
+        
+        ttk.Button(btn_container, text="🔄 Test IDS", command=self.test_ids, width=15).grid(row=0, column=2, padx=5, pady=5)
+        ttk.Button(btn_container, text="🌐 Interfaces", command=self.list_interfaces, width=15).grid(row=0, column=3, padx=5, pady=5)
+        
+        # Charts container
+        charts_frame = ttk.Frame(self.dashboard_tab)
+        charts_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        
+        # Left chart - Severity Distribution
+        left_chart_frame = ttk.LabelFrame(charts_frame, text="Severity Distribution", padding="5")
+        left_chart_frame.pack(side="left", fill="both", expand=True, padx=5)
+        
+        self.severity_fig = Figure(figsize=(5, 4), dpi=80, facecolor='#f0f0f0')
+        self.severity_ax = self.severity_fig.add_subplot(111)
+        self.severity_canvas = FigureCanvasTkAgg(self.severity_fig, left_chart_frame)
+        self.severity_canvas.get_tk_widget().pack(fill="both", expand=True)
+        self.update_severity_chart()
+        
+        # Right chart - Alerts Over Time
+        right_chart_frame = ttk.LabelFrame(charts_frame, text="Alerts Timeline (Last 60 Minutes)", padding="5")
+        right_chart_frame.pack(side="right", fill="both", expand=True, padx=5)
+        
+        self.timeline_fig = Figure(figsize=(5, 4), dpi=80, facecolor='#f0f0f0')
+        self.timeline_ax = self.timeline_fig.add_subplot(111)
+        self.timeline_canvas = FigureCanvasTkAgg(self.timeline_fig, right_chart_frame)
+        self.timeline_canvas.get_tk_widget().pack(fill="both", expand=True)
+        self.update_timeline_chart()
 
-        self.update_rules_btn = ttk.Button(btn_frame, text="Update Rules", command=self.update_rules)
-        self.update_rules_btn.pack(side="left", padx=5)
+    def create_stat_card(self, parent, label, stat_key, column, color):
+        """Create a statistic card"""
+        card = ttk.Frame(parent, relief=tk.RIDGE, borderwidth=2)
+        card.pack(side="left", fill="both", expand=True, padx=5)
+        
+        # Header with color
+        header = tk.Canvas(card, height=5, bg=color, highlightthickness=0)
+        header.pack(fill="x")
+        
+        # Value
+        value_var = tk.StringVar(value="0")
+        setattr(self, f"{stat_key}_var", value_var)
+        value_label = ttk.Label(card, textvariable=value_var, font=("Segoe UI", 24, "bold"))
+        value_label.pack(pady=(10, 0))
+        
+        # Label
+        ttk.Label(card, text=label, font=("Segoe UI", 10)).pack(pady=(0, 10))
 
-        self.fix_config_btn = ttk.Button(btn_frame, text="Fix Config", command=self.fix_config)
-        self.fix_config_btn.pack(side="left", padx=5)
+    def setup_alerts_tab(self):
+        """Alerts view with table"""
+        # Filter controls
+        filter_frame = ttk.Frame(self.alerts_tab)
+        filter_frame.pack(fill="x", padx=10, pady=5)
+        
+        ttk.Label(filter_frame, text="Filter:").pack(side="left", padx=5)
+        
+        self.filter_var = tk.StringVar(value="all")
+        ttk.Radiobutton(filter_frame, text="All", variable=self.filter_var, value="all").pack(side="left", padx=5)
+        ttk.Radiobutton(filter_frame, text="High", variable=self.filter_var, value="high").pack(side="left", padx=5)
+        ttk.Radiobutton(filter_frame, text="Medium", variable=self.filter_var, value="medium").pack(side="left", padx=5)
+        ttk.Radiobutton(filter_frame, text="Low", variable=self.filter_var, value="low").pack(side="left", padx=5)
+        
+        ttk.Button(filter_frame, text="Clear All", command=self.clear_alerts).pack(side="right", padx=5)
+        
+        # Alerts table
+        table_frame = ttk.Frame(self.alerts_tab)
+        table_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
-        self.ping_rule_btn = ttk.Button(btn_frame, text="Allow Local Attacks", command=self.allow_local_attacks)
-        self.ping_rule_btn.pack(side="left", padx=5)
-
-        # --- Alerts View ---
-        alert_frame = ttk.LabelFrame(self.root, text="Live Alerts", padding="10")
-        alert_frame.pack(fill="both", expand=True, padx=10, pady=5)
-
-        columns = ("timestamp", "src_ip", "src_port", "dest_ip", "dest_port", "category", "signature", "severity")
-        self.tree = ttk.Treeview(alert_frame, columns=columns, show="headings")
+        columns = ("timestamp", "severity", "src_ip", "src_port", "dest_ip", "dest_port", "category", "signature")
+        self.tree = ttk.Treeview(table_frame, columns=columns, show="headings", height=20)
         
         # Define headings
         self.tree.heading("timestamp", text="Timestamp")
+        self.tree.heading("severity", text="Severity")
         self.tree.heading("src_ip", text="Source IP")
-        self.tree.heading("src_port", text="Src Port")
-        self.tree.heading("dest_ip", text="Dest IP")
-        self.tree.heading("dest_port", text="Dst Port")
-        self.tree.heading("category", text="Classification")
+        self.tree.heading("src_port", text="Port")
+        self.tree.heading("dest_ip", text="Destination IP")
+        self.tree.heading("dest_port", text="Port")
+        self.tree.heading("category", text="Category")
         self.tree.heading("signature", text="Signature")
-        self.tree.heading("severity", text="Sev")
 
-        # Define columns width
+        # Define column widths
         self.tree.column("timestamp", width=150)
-        self.tree.column("src_ip", width=100)
+        self.tree.column("severity", width=80)
+        self.tree.column("src_ip", width=120)
         self.tree.column("src_port", width=60)
-        self.tree.column("dest_ip", width=100)
+        self.tree.column("dest_ip", width=120)
         self.tree.column("dest_port", width=60)
-        self.tree.column("category", width=150)
-        self.tree.column("signature", width=300)
-        self.tree.column("severity", width=40)
+        self.tree.column("category", width=180)
+        self.tree.column("signature", width=350)
 
-        # Scrollbar
-        scrollbar = ttk.Scrollbar(alert_frame, orient=tk.VERTICAL, command=self.tree.yview)
-        self.tree.configure(yscroll=scrollbar.set)
+        # Scrollbars
+        vsb = ttk.Scrollbar(table_frame, orient=tk.VERTICAL, command=self.tree.yview)
+        hsb = ttk.Scrollbar(table_frame, orient=tk.HORIZONTAL, command=self.tree.xview)
+        self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
         
-        self.tree.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
-
-        # Configure Tags for Colors
-        # Severity 1: High (Red)
-        # Severity 2: Medium (Orange)
-        # Severity 3: Low/Info (Green/Default)
-        self.tree.tag_configure('high', background='#ffcccc')   # Light Red
-        self.tree.tag_configure('medium', background='#ffebcc') # Light Orange
-        self.tree.tag_configure('low', background='#e6ffcc')    # Light Green
-
-        # --- Status Bar ---
-        self.status_var = tk.StringVar(value="Ready")
-        status_bar = ttk.Label(self.root, textvariable=self.status_var, relief=tk.SUNKEN, anchor="w")
-        status_bar.pack(side="bottom", fill="x")
-
-        # --- Console Log ---
-        console_frame = ttk.LabelFrame(self.root, text="Suricata Log", padding="10")
-        console_frame.pack(fill="x", padx=10, pady=5)
+        self.tree.grid(row=0, column=0, sticky="nsew")
+        vsb.grid(row=0, column=1, sticky="ns")
+        hsb.grid(row=1, column=0, sticky="ew")
         
-        self.console_text = scrolledtext.ScrolledText(console_frame, height=6, state='disabled')
+        table_frame.grid_rowconfigure(0, weight=1)
+        table_frame.grid_columnconfigure(0, weight=1)
+
+        # Configure tags for severity colors
+        self.tree.tag_configure('high', background='#ffcccc', foreground='#000')
+        self.tree.tag_configure('medium', background='#ffe6cc', foreground='#000')
+        self.tree.tag_configure('low', background='#e6ffe6', foreground='#000')
+
+    def setup_config_tab(self):
+        """Configuration panel"""
+        # Configuration Frame
+        config_frame = ttk.LabelFrame(self.config_tab, text="Suricata Configuration", padding="15")
+        config_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # Suricata Executable
+        ttk.Label(config_frame, text="Suricata Executable Path:", font=("Segoe UI", 9, "bold")).grid(row=0, column=0, sticky="w", pady=5)
+        self.suricata_path_var = tk.StringVar(value=DEFAULT_SURICATA_PATH)
+        ttk.Entry(config_frame, textvariable=self.suricata_path_var, width=70).grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+
+        # Config File
+        ttk.Label(config_frame, text="Configuration File Path:", font=("Segoe UI", 9, "bold")).grid(row=1, column=0, sticky="w", pady=5)
+        self.config_path_var = tk.StringVar(value=DEFAULT_CONFIG_PATH)
+        ttk.Entry(config_frame, textvariable=self.config_path_var, width=70).grid(row=1, column=1, padx=10, pady=5, sticky="ew")
+
+        # Interface
+        ttk.Label(config_frame, text="Network Interface:", font=("Segoe UI", 9, "bold")).grid(row=2, column=0, sticky="w", pady=5)
+        self.interface_var = tk.StringVar(value="Ethernet")
+        ttk.Entry(config_frame, textvariable=self.interface_var, width=30).grid(row=2, column=1, sticky="w", padx=10, pady=5)
+
+        # Log Directory
+        ttk.Label(config_frame, text="Log Directory:", font=("Segoe UI", 9, "bold")).grid(row=3, column=0, sticky="w", pady=5)
+        self.log_dir_var = tk.StringVar(value=DEFAULT_LOG_DIR)
+        ttk.Entry(config_frame, textvariable=self.log_dir_var, width=70).grid(row=3, column=1, padx=10, pady=5, sticky="ew")
+
+        config_frame.columnconfigure(1, weight=1)
+
+        # Advanced Options
+        advanced_frame = ttk.LabelFrame(self.config_tab, text="Advanced Options", padding="15")
+        advanced_frame.pack(fill="x", padx=10, pady=10)
+        
+        btn_grid = ttk.Frame(advanced_frame)
+        btn_grid.pack()
+        
+        ttk.Button(btn_grid, text="Update Rules", command=self.update_rules, width=20).grid(row=0, column=0, padx=5, pady=5)
+        ttk.Button(btn_grid, text="Fix Configuration", command=self.fix_config, width=20).grid(row=0, column=1, padx=5, pady=5)
+        ttk.Button(btn_grid, text="Allow Local Attacks", command=self.allow_local_attacks, width=20).grid(row=0, column=2, padx=5, pady=5)
+
+    def setup_console_tab(self):
+        """Console output tab"""
+        console_frame = ttk.Frame(self.console_tab)
+        console_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        ttk.Label(console_frame, text="Suricata Process Output", font=("Segoe UI", 10, "bold")).pack(anchor="w", pady=5)
+        
+        self.console_text = scrolledtext.ScrolledText(console_frame, height=25, state='disabled', 
+                                                       font=("Consolas", 9), bg="#1e1e1e", fg="#d4d4d4")
         self.console_text.pack(fill="both", expand=True)
 
+    def clear_alerts(self):
+        """Clear all alerts from the table"""
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        # Reset statistics
+        self.alert_stats = {'high': 0, 'medium': 0, 'low': 0, 'total': 0}
+        self.category_stats.clear()
+        self.alerts_per_minute.clear()
+        self.update_stat_displays()
+        self.update_severity_chart()
+        self.update_timeline_chart()
+
+    def update_stat_displays(self):
+        """Update statistic displays"""
+        self.total_var.set(str(self.alert_stats['total']))
+        self.high_var.set(str(self.alert_stats['high']))
+        self.medium_var.set(str(self.alert_stats['medium']))
+        self.low_var.set(str(self.alert_stats['low']))
+
+    def update_severity_chart(self):
+        """Update the severity distribution pie chart"""
+        self.severity_ax.clear()
+        
+        sizes = [self.alert_stats['high'], self.alert_stats['medium'], self.alert_stats['low']]
+        labels = ['High', 'Medium', 'Low']
+        colors = ['#e74c3c', '#f39c12', '#2ecc71']
+        
+        if sum(sizes) == 0:
+            sizes = [1, 1, 1]
+            self.severity_ax.text(0.5, 0.5, 'No Alerts Yet', 
+                                 horizontalalignment='center', verticalalignment='center',
+                                 transform=self.severity_ax.transAxes, fontsize=12)
+            self.severity_ax.pie(sizes, colors=['#cccccc']*3, startangle=90)
+        else:
+            explode = (0.05, 0.05, 0.05)
+            self.severity_ax.pie(sizes, explode=explode, labels=labels, colors=colors, 
+                                autopct='%1.1f%%', startangle=90, textprops={'fontsize': 9})
+        
+        self.severity_ax.axis('equal')
+        self.severity_canvas.draw()
+
+    def update_timeline_chart(self):
+        """Update the alerts timeline chart"""
+        self.timeline_ax.clear()
+        
+        if len(self.alerts_per_minute) == 0:
+            self.timeline_ax.text(0.5, 0.5, 'No Alert Data Yet', 
+                                 horizontalalignment='center', verticalalignment='center',
+                                 transform=self.timeline_ax.transAxes, fontsize=12)
+            self.timeline_ax.set_xlim(0, 60)
+            self.timeline_ax.set_ylim(0, 10)
+        else:
+            x = list(range(len(self.alerts_per_minute)))
+            y = list(self.alerts_per_minute)
+            self.timeline_ax.plot(x, y, color='#3498db', linewidth=2, marker='o', markersize=4)
+            self.timeline_ax.fill_between(x, y, alpha=0.3, color='#3498db')
+            self.timeline_ax.set_xlabel('Minutes Ago', fontsize=9)
+            self.timeline_ax.set_ylabel('Alerts', fontsize=9)
+            self.timeline_ax.grid(True, alpha=0.3)
+        
+        self.timeline_canvas.draw()
+
+    def start_chart_updates(self):
+        """Start periodic chart updates"""
+        def update_charts():
+            if self.is_running:
+                current_minute = datetime.now().minute
+                if current_minute != self.last_minute:
+                    self.alerts_per_minute.append(self.current_minute_count)
+                    self.current_minute_count = 0
+                    self.last_minute = current_minute
+                    self.update_timeline_chart()
+            
+            self.root.after(5000, update_charts)  # Update every 5 seconds
+        
+        update_charts()
+
     def log(self, message):
-        self.status_var.set(message)
-        print(message)
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        formatted_msg = f"[{timestamp}] {message}"
+        
+        self.status_var.set(f"● {message}")
+        print(formatted_msg)
         
         self.console_text.configure(state='normal')
-        self.console_text.insert(tk.END, message + "\n")
+        self.console_text.insert(tk.END, formatted_msg + "\n")
         self.console_text.see(tk.END)
         self.console_text.configure(state='disabled')
 
@@ -180,7 +400,8 @@ class NetShieldIDS:
             
             self.start_btn.config(state="disabled")
             self.stop_btn.config(state="normal")
-            self.log(f"Suricata started on {interface}...")
+            self.status_indicator.itemconfig(self.status_circle, fill='#2ecc71')  # Green
+            self.log(f"Suricata started on interface {interface}")
 
             # Start Log Monitor Thread
             threading.Thread(target=self.monitor_logs, daemon=True).start()
@@ -447,7 +668,8 @@ class NetShieldIDS:
         
         self.start_btn.config(state="normal")
         self.stop_btn.config(state="disabled")
-        self.log("Suricata stopped.")
+        self.status_indicator.itemconfig(self.status_circle, fill='gray')
+        self.log("Suricata stopped")
 
     def list_interfaces(self):
         # On Windows, suricata --list-interfaces might not be available or reliable.
@@ -563,18 +785,41 @@ class NetShieldIDS:
             sev_int = int(severity)
             if sev_int == 1:
                 tag = 'high'
+                self.alert_stats['high'] += 1
             elif sev_int == 2:
                 tag = 'medium'
+                self.alert_stats['medium'] += 1
             else:
                 tag = 'low'
+                self.alert_stats['low'] += 1
         except (ValueError, TypeError):
-            pass
-
-        self.tree.insert("", 0, values=(timestamp, src_ip, src_port, dest_ip, dest_port, category, signature, severity), tags=(tag,))
+            tag = 'low'
+            self.alert_stats['low'] += 1
         
-        # Keep only last 1000 alerts to prevent memory issues
+        self.alert_stats['total'] += 1
+        self.current_minute_count += 1
+        
+        # Update category stats
+        if category:
+            self.category_stats[category] += 1
+        
+        # Format timestamp for display
+        try:
+            dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+            display_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+        except:
+            display_time = timestamp
+
+        # Insert into tree with severity as second column
+        self.tree.insert("", 0, values=(display_time, tag.upper(), src_ip, src_port, dest_ip, dest_port, category, signature), tags=(tag,))
+        
+        # Keep only last 1000 alerts
         if len(self.tree.get_children()) > 1000:
             self.tree.delete(self.tree.get_children()[-1])
+        
+        # Update displays
+        self.update_stat_displays()
+        self.update_severity_chart()
 
 if __name__ == "__main__":
     root = tk.Tk()
