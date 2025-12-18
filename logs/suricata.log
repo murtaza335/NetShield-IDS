@@ -1,0 +1,345 @@
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: cpu: CPUs/cores online: 12
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: suricata: Setting engine mode to IDS mode by default
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: exception-policy: master exception-policy set to: auto
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: logopenfile: fast output device (regular) initialized: fast.log
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: logopenfile: stats output device (regular) initialized: stats.log
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Error: detect-parse: Signature missing required value "sid".
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[21080 - Suricata-Main] 2025-12-12 20:43:29 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Info: runmodes: Using 1 live device(s).
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:43:30 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Warning: suricata: setrlimit unavailable.
+[21080 - Suricata-Main] 2025-12-12 20:43:30 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
+[5260 - RX#01-\Dev..1EE] 2025-12-12 20:44:50 Info: checksum: No packets with invalid checksum, assuming checksum offloading is NOT used
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: cpu: CPUs/cores online: 12
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: suricata: Setting engine mode to IDS mode by default
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: exception-policy: master exception-policy set to: auto
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: logopenfile: fast output device (regular) initialized: fast.log
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: logopenfile: stats output device (regular) initialized: stats.log
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Error: detect-parse: Signature missing required value "sid".
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:45 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[8084 - Suricata-Main] 2025-12-16 11:13:46 Info: runmodes: Using 1 live device(s).
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:13:46 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[8084 - Suricata-Main] 2025-12-16 11:13:46 Warning: suricata: setrlimit unavailable.
+[8084 - Suricata-Main] 2025-12-16 11:13:46 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
+[9344 - RX#01-\Dev..1EE] 2025-12-16 11:14:51 Info: checksum: No packets with invalid checksum, assuming checksum offloading is NOT used
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: cpu: CPUs/cores online: 12
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: suricata: Setting engine mode to IDS mode by default
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: exception-policy: master exception-policy set to: auto
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: logopenfile: fast output device (regular) initialized: fast.log
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: logopenfile: stats output device (regular) initialized: stats.log
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Error: detect-parse: Signature missing required value "sid".
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:07 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[11632 - Suricata-Main] 2025-12-17 15:26:08 Info: runmodes: Using 1 live device(s).
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:26:08 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[11632 - Suricata-Main] 2025-12-17 15:26:08 Warning: suricata: setrlimit unavailable.
+[11632 - Suricata-Main] 2025-12-17 15:26:08 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
+[23400 - RX#01-\Dev..1EE] 2025-12-17 15:28:41 Info: checksum: No packets with invalid checksum, assuming checksum offloading is NOT used
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Info: cpu: CPUs/cores online: 12
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Info: suricata: Setting engine mode to IDS mode by default
+[10048 - Suricata-Main] 2025-12-18 19:34:19 Info: exception-policy: master exception-policy set to: auto
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: logopenfile: fast output device (regular) initialized: fast.log
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: logopenfile: stats output device (regular) initialized: stats.log
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Error: detect-parse: Signature missing required value "sid".
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:20 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[10048 - Suricata-Main] 2025-12-18 19:34:21 Info: runmodes: Using 1 live device(s).
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[19056 - RX#01-\Dev..1EE] 2025-12-18 19:34:21 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[10048 - Suricata-Main] 2025-12-18 19:34:21 Warning: suricata: setrlimit unavailable.
+[10048 - Suricata-Main] 2025-12-18 19:34:21 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: cpu: CPUs/cores online: 12
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: suricata: Setting engine mode to IDS mode by default
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: exception-policy: master exception-policy set to: auto
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: logopenfile: fast output device (regular) initialized: fast.log
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[8724 - Suricata-Main] 2025-12-18 19:42:27 Info: logopenfile: stats output device (regular) initialized: stats.log
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Error: detect-parse: Signature missing required value "sid".
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Info: runmodes: Using 1 live device(s).
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[23868 - RX#01-\Dev..1EE] 2025-12-18 19:42:28 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Warning: suricata: setrlimit unavailable.
+[8724 - Suricata-Main] 2025-12-18 19:42:28 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Notice: suricata: This is Suricata version 7.0.11 RELEASE running in SYSTEM mode
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: cpu: CPUs/cores online: 12
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Notice: runmodes: thread stack size of 0 to too small: setting to 512k
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: device: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: shortening device name to \Dev..1EE}
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: suricata: Setting engine mode to IDS mode by default
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: exception-policy: master exception-policy set to: auto
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: coredump-config: Configuring core dump is not yet supported on Windows.
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: logopenfile: fast output device (regular) initialized: fast.log
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: logopenfile: stats output device (regular) initialized: stats.log
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Error: detect-parse: Signature missing required value "sid".
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Error: detect: error parsing signature "alert http any any -> $HOME_NET any (msg:"ET EXPLOIT Attempted ThinkPHP < 5.2.x RCE Inbound (CVE-2018-20062)"; flow:established,to_server; http.method; content:"POST"; http.uri; content:".php"; http.request_body; content:"_method=__construct&filter[]=assert&method=get&server[REQUEST_METHOD]"; fast_pattern; " from file C:\\Program Files\\Suricata\\rules\\suricata.rules at line 30693
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: detect: 1 rule files processed. 10822 rules successfully loaded, 1 rules failed, 0
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: threshold-config: Error opening file: "C:\Program Files\Suricata\\\threshold.config": No such file or directory
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Info: detect: 10822 signatures processed. 1 are IP-only rules, 1776 are inspecting packet payload, 9029 inspect application layer, 0 are decoder event only
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.AVI.RIFF.Chunk' is checked but not set. Checked in 2012143 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'DXF.Ext.Access' is checked but not set. Checked in 2012153 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'et.x0proto' is checked but not set. Checked in 2012237 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.bind.winreg' is checked but not set. Checked in 2103218 and 31 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'dce.isystemactivator.bind' is checked but not set. Checked in 2103425 and 15 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.bind.msqueue' is checked but not set. Checked in 2103158 and 17 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.bind.irot' is checked but not set. Checked in 2103238 and 17 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.bind.nddeapi' is checked but not set. Checked in 2102936 and 15 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'dce.iactivation.bind' is checked but not set. Checked in 2103409 and 15 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.bind.llsrpc' is checked but not set. Checked in 2103114 and 15 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'smb.tree.connect.ipc' is checked but not set. Checked in 2103090 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.Onelouder.bin' is checked but not set. Checked in 2018982 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.rat.alienspy' is checked but not set. Checked in 2019740 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.smb.binary' is checked but not set. Checked in 2027402 and 4 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.wpphish' is checked but not set. Checked in 2031984 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.TinyNuke' is checked but not set. Checked in 2024513 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.xls.dde.drop' is checked but not set. Checked in 2026491 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'Office.UA' is checked but not set. Checked in 2024226 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'et.IE7.NoRef.NoCookie' is checked but not set. Checked in 2024550 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.PS.Download' is checked but not set. Checked in 2032169 and 3 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.OzoneRAT' is checked but not set. Checked in 2032543 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.rustybuer' is checked but not set. Checked in 2032960 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.rclone' is checked but not set. Checked in 2033055 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.cobaltstrike.ja3' is checked but not set. Checked in 2033157 and 2 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.LDAPSBindRequest' is checked but not set. Checked in 2034720 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.LDAPAnonBindRequest' is checked but not set. Checked in 2034705 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.LDAPBindRequest' is checked but not set. Checked in 2034771 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'ET.ApacheSpark_UnauthRegisterApplication' is checked but not set. Checked in 2035004 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon' is checked but not set. Checked in 2035262 and 1 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvrauth.nosignnoseal' is checked but not set. Checked in 2035263 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:10 Warning: detect-flowbits: flowbit 'dcerpc.rpcnetlogon.netrsrvreqchal.nullcc' is checked but not set. Checked in 2035262 and 0 other sigs
+[13148 - Suricata-Main] 2025-12-18 19:46:11 Info: runmodes: Using 1 live device(s).
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: running in 'auto' checksum mode. Detection of interface state will require 1000 packets
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: win32-syscall: Found an MTU of 1500 for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}'
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: pcap: \Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}: snaplen set to 1524
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Info: win32-syscall: Obtaining offload state failed, device "VirtualBox Host-Only Ethernet Adapter" may not support offload. Error: 0x80041001
+[6512 - RX#01-\Dev..1EE] 2025-12-18 19:46:11 Warning: win32-syscall: Failure when trying to get feature via syscall for '\Device\NPF_{C15784C0-B956-448F-833D-52D49CEF61EE}': Generic failure (0x80041001)
+[13148 - Suricata-Main] 2025-12-18 19:46:11 Warning: suricata: setrlimit unavailable.
+[13148 - Suricata-Main] 2025-12-18 19:46:11 Notice: threads: Threads created -> RX: 1 W: 12 FM: 1 FR: 1   Engine started.
