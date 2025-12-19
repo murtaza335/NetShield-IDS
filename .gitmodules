@@ -1,0 +1,3 @@
+[submodule "NetShield-IDS-mobile-app"]
+	path = NetShield-IDS-mobile-app
+	url = https://github.com/murtaza335/NetShield-IDS-mobile-app.git
